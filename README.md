@@ -1,10 +1,10 @@
 # Blizzards
 
-Prioritized Projects
+Prioritized Projects:
 
-CPSC Study Buddies
-CPSC Degree Works
-CPSC Electives
-CPSC Core Curriculum Recommender
-CPSC Friends
-CPSC Events
+1. CPSC Study Buddies
+2. CPSC Degree Works
+3. CPSC Electives
+4. CPSC Core Curriculum Recommender
+5. CPSC Friends
+6. CPSC Events
