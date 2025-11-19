@@ -5,17 +5,12 @@ from auto_cancel import AutoCancelJob
 from flashcards import FlashcardGenerator
 
 def main():
-    # Reference the Profile class (don't instantiate) to avoid signature/typing
-    # collisions with other modules named `profile` (stdlib). This keeps the
-    # symbol used so linters won't flag it as unused without triggering a
-    # constructor call that some analyzers may resolve to a different symbol.
-    Alex = Profile
+    Alex = Profile("Alex", "CIS", "Math", "Unknown")
+    Alex.update_schedule({"Tuesday": ["10AM", "3PM"], "Thursday": ["1PM"]})
+    print("Profile created:")
+    print(Alex)
 
-    # Touch the other imports so linters/static checkers won't mark them as unused.
-    _ = StudySession
-    _ = InviteLogic
-    _ = AutoCancelJob
-    _ = FlashcardGenerator
+    session = StudySession(proposer=Alex, time="Mon 10am", place="Library", topic="Algorithms")
+    print("\nSession proposed:", session.topic, "at", session.place)
 
-    # Print a safe representation of the Profile symbol
-    print(getattr(Alex, "__name__", str(Alex)))
+    
