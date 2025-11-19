@@ -24,3 +24,6 @@ def main():
     print("\nGenerated Flashcards:")
     for card in flashcards:
         print("-", card)
+
+if __name__ == "__main__":
+    main()
