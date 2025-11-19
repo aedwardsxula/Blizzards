@@ -15,15 +15,14 @@ def main():
     print("\nSession proposed:", session.topic, "at", session.place)
 
     syllabus = [
-        ("Sorting Algorithms", datetime(2025, 11, 18)),
-        ("Graph Theory", datetime(2025, 11, 20)),
-        ("Dynamic Programming", datetime(2025, 11, 25))
-    ]
+    {"date": datetime(2025, 11, 18), "flashcards": ["Define sorting", "Explain bubble sort"]},
+    {"date": datetime(2025, 11, 20), "flashcards": ["Graph basics", "DFS vs BFS"]}
+]
+
     generator = FlashcardGenerator(syllabus)
-    flashcards = generator.generate(datetime(2025, 11, 18), datetime(2025, 11, 22))
-    print("\nGenerated Flashcards:")
-    for card in flashcards:
-        print("-", card)
+    cards = generator.generate(datetime(2025, 11, 18), datetime(2025, 11, 22))
+
+    print(cards)
 
 if __name__ == "__main__":
     main()
