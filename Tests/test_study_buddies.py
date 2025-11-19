@@ -57,7 +57,7 @@ def test_decline_invitation():
 # Test: Pending session autocancels after X hours
 def test_pending_session_auto_cancel_after_hours():
     start_time = datetime.now() - timedelta(hours=4)
-    sess = AutoCancel(
+    sess = AutoCancelJob(
         proposer="Lonzo",
         time=start_time,
         place="Library",
@@ -72,7 +72,7 @@ def test_pending_session_auto_cancel_after_hours():
 
 # Test: cancellation notifications
 def test_cancellation_notifications_sent():
-    sess = AutoCancel(
+    sess = AutoCancelJob(
         proposer="Lonzo",
         time=datetime.now() - timedelta(hours=4),
         place="Library",
