@@ -13,4 +13,4 @@ class Profile:
         self.schedule = new_schedule
 
     def __repr__(self):
-        return f"Profile(name={self.name}, major={self.major}, minor={self.minor}, schedule={self.schedule})"
+        return f"Name: {self.name } \nMajor: {self.major} | Minor: {self.minor} \nSchedule: {self.schedule}"
