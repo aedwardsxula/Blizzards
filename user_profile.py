@@ -83,8 +83,8 @@ class Profile:
         self.schedule = new_schedule_dict
 
     # NEW: update a single schedule entry with an Event
-    def update_schedule(self, index: int, event: Event):
-        # Prevent duplicate DateTimes
+    def update_schedule_entry(self, index: int, event: Event):
+    # Prevent duplicate DateTimes
         for existing in self.schedule:
             if existing.when == event.when:
                 return False  # Duplicate datetime — do NOT update
@@ -92,9 +92,9 @@ class Profile:
         # Index must be valid
         if 0 <= index < len(self.schedule):
             self.schedule[index] = event
-            return True
+        return True
 
-        return False
+        return False  # Invalid index — do NOT update  
 
     # NEW: change major
     def change_major(self, new_major: str):
