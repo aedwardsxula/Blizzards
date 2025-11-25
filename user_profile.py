@@ -5,10 +5,10 @@
 #Create a Profile class that has attributes: id(int), first_name(str), last_name(str), schedule(list[Event]), major(str).  
 # Create a constructor and a __str__ method.  The first and last names must be formatted in Titlecase.  
 # The major must be formatted in TITLECASE.  The schedule must begin as an empty list.
-
+from event import Event
+from datetime import datetime
 class Profile:
-    Valid_majors = {'CS', 'CIS', 'CE', 'CE', 'BINF'}
-
+    Valid_majors = {'CS', 'CIS', 'CE', 'CE', 'BINF',}
     def __init__(self, id, first_name, last_name, major, schedule=None):
 
         self.id = int(id)
@@ -83,8 +83,8 @@ class Profile:
         self.schedule = new_schedule_dict
 
     # NEW: update a single schedule entry with an Event
-    def update_schedule(self, index: int, event: Event):
-        # Prevent duplicate DateTimes
+    def update_schedule_entry(self, index: int, event: Event):
+    # Prevent duplicate DateTimes
         for existing in self.schedule:
             if existing.when == event.when:
                 return False  # Duplicate datetime — do NOT update
@@ -92,9 +92,9 @@ class Profile:
         # Index must be valid
         if 0 <= index < len(self.schedule):
             self.schedule[index] = event
-            return True
+        return True
 
-        return False
+        return False  # Invalid index — do NOT update  
 
     # NEW: change major
     def change_major(self, new_major: str):
