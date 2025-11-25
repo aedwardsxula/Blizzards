@@ -40,10 +40,10 @@ def main():
 
     for profile in profiles:
         if profile.major == "CIS":
-            profile.add_event(Event("Team Meeting", datetime(2025, 1, 7, 13, 0)))
-            profile.add_event(Event("Office Hours", datetime(2025, 1, 7, 15, 0)))
+            profile.update_schedule(Event("Team Meeting", datetime(2025, 1, 7, 13, 0)))
+            profile.update_schedule(Event("Office Hours", datetime(2025, 1, 7, 15, 0)))
         else:
-            profile.add_event(Event("General Meeting", datetime(2025, 1, 10, 10, 0)))
+            profile.update_schedule(Event("General Meeting", datetime(2025, 1, 10, 10, 0)))
     print(profile)
     print("Updated schedule:")
     for e in profile.schedule:
