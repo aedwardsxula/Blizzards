@@ -7,6 +7,6 @@ class Event:
         self.when = when
 
     def __str__(self):
-        formatted_time = self.when.strftime("%m/%d/%Y at %I:%M %p")
-        return f"Event: {self.what} at {formatted_time}"
-    
+        return f"Event: {self.what} at {self.when.strftime('%m/%d/%Y at %I:%M %p')}"
+    def __repr__(self):
+        return self.__str__()
