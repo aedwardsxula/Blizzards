@@ -62,27 +62,16 @@ class Profile:
             output.append(f"{prefix}{e.what} at {formatted_time}")
         return output
 
-<<<<<<< HEAD
     # Update an event at an index (no duplicate datetimes)
     def update_schedule_entry(self, index: int, event: Event):
-=======
-    # NEW: update a single schedule entry with an Event
-    def update_schedule_entry(self, index: int, event: Event):
-    # Prevent duplicate DateTimes
->>>>>>> smaxey_edit_event_class
         for existing in self.schedule:
             if existing.when == event.when:
                 return False  # Duplicate datetime → reject
         if 0 <= index < len(self.schedule):
             self.schedule[index] = event
-<<<<<<< HEAD
-            return True
-        return False
-=======
         return True
 
         return False  # Invalid index — do NOT update  
->>>>>>> smaxey_edit_event_class
 
     # Change major safely
     def change_major(self, new_major: str):
