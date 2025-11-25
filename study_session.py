@@ -18,7 +18,7 @@ class StudySession:
             profile2.update_schedule(self)
             print(f"Invited {profile1.first_name} and {profile2.first_name} to study session on {self.topic} at {self.time}")
         else:
-            print("Cannot invite: Time conflict in one or both profiles' schedules.")
+            print("Cannot invite: Time conflict in both profiles' schedules.")
 
     def confirm(self):
         print(f"Confirming study session on {self.topic}")
