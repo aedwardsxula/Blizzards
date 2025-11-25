@@ -1,28 +1,31 @@
 from datetime import datetime, timedelta
-from sched import Event
-from user_profile import Profile
-from study_session import StudySession
-from invite_logic import InviteLogic
-from auto_cancel import AutoCancelJob
-from flashcards import FlashcardGenerator
+from Blizzards.user_profile import Profile
+from Blizzards.study_session import StudySession
+from Blizzards.invite_logic import InviteLogic
+from Blizzards.auto_cancel import AutoCancelJob
+from Blizzards.flashcards import FlashcardGenerator
+
+def print_welcome_banner():
+    banner = r"""
+    ================================================
+    __        __   _                            _         
+    \ \      / /__| | ___ ___  _ __ ___   ___  | |   
+     \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ |_|   
+      \ V  V /  __/ | (_| (_) | | | | | |  __/  _ 
+       \_/\_/ \___|_|\___\___/|_| |_| |_|\___| |_|
+
+    ________________________________________________
+    
+    Welcome to Study Buddies — let us learn together!
+    ________________________________________________
+    ================================================
+    """
+    print(banner)
 
 def main():
-    Alex = Profile("Alex", "CIS", "Math", "Unknown")
-    Alex.update_schedule({"Tuesday": ["10AM", "3PM"], "Thursday": ["1PM"]})
-    print("Profile created:")
-    print(Alex)
+    print (print_welcome_banner())
 
-    session = StudySession(proposer=Alex, time="Mon 10am", place="Library", topic="Algorithms")
-    print("\nSession proposed:", session.topic, "at", session.place)
 
-    syllabus = [
-    {"date": datetime(2025, 11, 18), "flashcards": ["Define sorting", "Explain bubble sort"]},
-    {"date": datetime(2025, 11, 20), "flashcards": ["Graph basics", "DFS vs BFS"]}]
-
-    generator = FlashcardGenerator(syllabus)
-    cards = generator.generate(datetime(2025, 11, 18), datetime(2025, 11, 22))
-
-    print(cards)
 
     #Testing User_profile class
     #Create 5 profiles and call their methods

@@ -19,6 +19,18 @@ class StudySession:
     def cancel(self):
         print(f"Cancelling study session on {self.topic}")
         self.status = "cancelled"
-    
-    def __repr__(self):
-        return f"StudySession(topic={self.topic}, proposer={self.proposer}, time={self.time}, place={self.place}, status={self.status})"
+        
+    def remove(self, profileA, profileB):
+        removed = False
+
+        # Remove from profile A
+        if self in profileA.schedule:
+            profileA.schedule.remove(self)
+            removed = True
+
+        # Remove from profile B
+        if self in profileB.schedule:
+            profileB.schedule.remove(self)
+            removed = True
+
+        return removed

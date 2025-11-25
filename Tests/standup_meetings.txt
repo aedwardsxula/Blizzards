@@ -1,0 +1,3 @@
+2025/11/20 | Samuel Maxey | Issues Discussed: Creating a checklist of user stories to be completed. | Actions: Started implementing the user stories as the SWE.
+2025/11/20 | Robin Hall | Issues Discussed: Discussed ways for the team to improve. Discussed next steps according to each person's role. | Actions: Created the MMP list on the Blizzards Trello Board.
+2025/11/20 | Lonzo Hamilton | Issues Discussed: Creating a checklist of user stories to be completed. Improve existing user stories. | Actions: Implement unit tests on user stories based on the MMP stage of the project.         

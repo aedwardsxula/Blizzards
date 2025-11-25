@@ -1,7 +1,7 @@
 #Implement AutoCancel Job (inherits from StudySession)
 #Auto-cancels after X hours
 #Notifies buddies of cancellation
-from study_session import StudySession
+from Blizzards.study_session import StudySession
 class AutoCancelJob(StudySession):
     def __init__(self, proposer, time, place, topic, status="pending", cancel_after_hours=2):
         super().__init__(proposer, time, place, topic, status)

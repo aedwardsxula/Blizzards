@@ -9,3 +9,4 @@ class Event:
     def __str__(self):
         formatted_time = self.when.strftime("%m/%d/%Y at %I:%M %p")
         return f"Event: {self.what} at {formatted_time}"
+    
