@@ -33,10 +33,10 @@ def main():
     p1 = Profile(0,"Sam", "CS", "Math", "Unknown")
     p1.update_schedule({"Monday": ["9AM", "2PM"], "Wednesday":["11AM"]})
     
-    p2 = Profile(1,"Jamie", "CE", "History", "Unknown")
-    p3 = Profile(2,"Taylor", "BINF", "Chemistry", "Unknown")
-    p4 = Profile(3,"Jordan", "CIS", "English", "Unknown")
-    p5 = Profile(4,"Casey", "CIS", "Design", "Unknown")
+    p2 = Profile(1,"Jamie","Maxey", "CE", "History", "Unknown")
+    p3 = Profile(2,"Taylor", "Jackson", "BINF", "Chemistry", "Unknown")
+    p4 = Profile(3,"Jordan", "Michael" ,"CIS", "English", "Unknown")
+    p5 = Profile(4,"Casey","Brown" ,"CIS", "Design", "Unknown")
     profiles = [p1, p2, p3, p4, p5]
     for profile in profiles:
         if profile.major == "CIS":
