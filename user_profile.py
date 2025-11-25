@@ -5,7 +5,8 @@
 #Create a Profile class that has attributes: id(int), first_name(str), last_name(str), schedule(list[Event]), major(str).  
 # Create a constructor and a __str__ method.  The first and last names must be formatted in Titlecase.  
 # The major must be formatted in TITLECASE.  The schedule must begin as an empty list.
-
+from event import Event
+from datetime import datetime
 class Profile:
     Valid_majors = {'CS', 'CIS', 'CE', 'CE', 'BINF'}
 
