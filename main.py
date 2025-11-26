@@ -54,6 +54,7 @@ def main():
     print("\nAutoCancelJob created for event:", auto_cancel.event.name)
     
     # Create 33 study sessions
+    sessions = []
     times = [datetime.now() + timedelta(days=i, hours=j) for i in range(1, 10) for j in range(9, 18)]
     topics = ["Calculus", "Calculus II", "Info Systems",  "Data Structures", "Chemistry"]
     places = ["Library", "Cafeteria", "Admin", "Zoom"]
