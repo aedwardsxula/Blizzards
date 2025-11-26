@@ -24,6 +24,8 @@ def print_welcome_banner():
     """
     print(banner)
 
+def remove_two_sessions(session, profileA, profileB):
+
 def main():
     print (print_welcome_banner())
 
@@ -63,6 +65,7 @@ def main():
         sessions.append(session)
     for s in sessions:
         print(f"{s.proposer} scheduled {s.topic} at {s.place} ({s.time})")
+    
 
 
 
