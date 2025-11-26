@@ -75,6 +75,17 @@ def main():
     for s in sessions:
         remove_two_sessions(s, p1, p2)
 
+    #Create 222 study sessions
+    study_sessions = []
+    times = [datetime.now() + timedelta(days=i, hours=j) for i in range(1, 10) for j in range(9, 18)]
+    topics = ["Calculus", "Calculus II", "Info Systems",  "Data Structures", "Chemistry"]
+    places = ["Library", "Cafeteria", "Admin", "Zoom"]
+    for i in range(33):
+        s_session = StudySession(proposer=f"User{i}", time=random.choice(times), place=random.choice(places),topic=random.choice(topics), status="pending")
+        study_sessions.append(s_session)
+    for s in study_sessions:
+        print(f"{s.proposer} scheduled {s.topic} at {s.place} ({s.time})")
+
 
 
 
