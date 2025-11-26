@@ -2,7 +2,6 @@ from study_session import StudySession
 import unittest
 from datetime import datetime
 
-#Test that the str method displays using the format "Friday, Nov 21, 2025 at 11:28 PM has a study session on 'How to write use cases'".
 class TestStudySession(unittest.TestCase):
     def setUp(self):
         self.Alex = StudySession(proposer="Alex", time="Mon 10am", place="Library", topic="Algorithms")
