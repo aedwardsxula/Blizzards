@@ -86,6 +86,9 @@ def main():
     for s in study_sessions:
         print(f"{s.proposer} scheduled {s.topic} at {s.place} ({s.time})")
 
+    profileA, profileB = random.sample(profiles, 2)
+    chosen_session = random.choice(study_sessions)
+
 
 
 
