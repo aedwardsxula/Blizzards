@@ -56,9 +56,9 @@ class Profile:
     # Add event to schedule
     def add_event(self, event: Event):
         if event in self.schedule:
-            return False  # Duplicate event → reject
+            return False  # Duplicate event reject
         if self.has_datetime_conflict(event.when):
-            return False  # Datetime conflict → reject
+            return False  # Datetime conflict reject
         self.schedule.append(event)
         return True
 
@@ -72,17 +72,36 @@ class Profile:
         return len(self.schedule) < before
 
     # Output events relative to a date
-    def output_events(self, current_date: datetime):
+    def output_events(self, current_date: datetime | None = None):
+        if current_date is None:
+            current_date = datetime.now()
+
         output = []
-        for e in self.schedule:
-            if e.when.date() < current_date.date():
+        for item in self.schedule:
+            dt = self._extract_datetime(item)
+            if dt is None:
+                continue
+
+            if dt.date() < current_date.date():
                 prefix = "LATE "
-            elif e.when.date() == current_date.date():
+            elif dt.date() == current_date.date():
                 prefix = "NOW "
             else:
                 prefix = ""
-            formatted_time = e.when.strftime("%m/%d/%Y at %I:%M %p")
-            output.append(f"{prefix}{e.what} at {formatted_time}")
+
+            # Try to get a human-readable description
+            if hasattr(item, "what"):
+                label = item.what
+            elif hasattr(item, "reason"):
+                label = item.reason
+            elif hasattr(item, "topic"):
+                label = item.topic
+            else:
+                label = str(item)
+
+            formatted_time = dt.strftime("%m/%d/%Y at %I:%M %p")
+            output.append(f"{prefix}{label} at {formatted_time}")
+
         return output
     #sort events in reverse chronological order
     # Sort events by datetime in reverse chronological order
