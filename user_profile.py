@@ -40,7 +40,12 @@ class Profile:
 
     # Add event to schedule
     def add_event(self, event: Event):
+        if event in self.schedule:
+            return False  # Duplicate event → reject
+        if self.has_datetime_conflict(event.when):
+            return False  # Datetime conflict → reject
         self.schedule.append(event)
+        return True
 
     # Remove all events matching the same "what"
     def remove_event(self, event: Event):
