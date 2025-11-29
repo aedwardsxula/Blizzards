@@ -69,6 +69,11 @@ class Profile:
             formatted_time = e.when.strftime("%m/%d/%Y at %I:%M %p")
             output.append(f"{prefix}{e.what} at {formatted_time}")
         return output
+    #sort events in reverse chronological order
+    # Sort events by datetime in reverse chronological order
+    def sort_events_reverse_chronological(self):
+        self.schedule.sort(key=lambda e: e.when, reverse=True) 
+
 
     # Update an event at an index (no duplicate datetimes)
     def update_schedule_entry(self, index: int, event: Event):
