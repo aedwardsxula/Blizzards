@@ -36,6 +36,21 @@ class Profile:
 
     def __repr__(self):
         return self.__str__()
+    
+    def _extract_datetime(self, item):
+        """Return the datetime for Events / StudySessions / InviteLogic / AutoCancelJob."""
+        if hasattr(item, "when"):
+            return item.when
+        if hasattr(item, "time"):
+            return item.time
+        return None
+
+    def _has_datetime_conflict(self, dt: datetime):
+        for item in self.schedule:
+            item_dt = self._extract_datetime(item)
+            if item_dt is not None and item_dt == dt:
+                return True
+        return False
 
 
     # Add event to schedule
