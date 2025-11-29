@@ -20,6 +20,10 @@ class StudySession:
         self.status = status
         self.reason = reason
 
+    def __str__(self):
+        time_str = self.time.strftime("%A, %b %d, %Y at %I:%M %p")
+        return f"Study Session on {self.topic} proposed by {self.proposer} at {self.place} on {time_str}. Status: {self.status}"   
+
     def invite(self, invitee):
         print(f"Inviting {invitee} to study session on {self.topic}")
 
