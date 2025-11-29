@@ -98,6 +98,10 @@ class TestProfile(unittest.TestCase):
         self.assertIn(today, result)
         self.assertIn(future, result)
         self.assertNotIn(past, result)
+        
+    def test_sort_empty_schedule(self):
+        p = Profile("Lonzo", "CIS", "Math")
+        self.assertEqual(p.sort_study_sessions(), [])
 
 if __name__ == '__main__':
     unittest.main()
