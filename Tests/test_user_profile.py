@@ -69,6 +69,39 @@ class TestProfile(unittest.TestCase):
         profile = Profile(4, "michael", "brown", "ce")
         self.assertEqual(profile.first_name, "Michael")
         self.assertEqual(profile.last_name, "Brown")
+        
+    def test_sort_study_sessions(self):
+        p = Profile("Lonzo", "CIS", "Math")
+
+        now = datetime.now()
+        s1 = StudySession(p, now + timedelta(hours=5), "Library", "Trees")
+        s2 = StudySession(p, now + timedelta(hours=1), "STEM", "Loops")
+        s3 = StudySession(p, now + timedelta(hours=3), "Dorm", "Graphs")
+
+        p.schedule = [s1, s2, s3]
+
+        sorted_sessions = p.sort_study_sessions()
+        self.assertEqual(sorted_sessions, [s2, s3, s1])
+        
+    def test_upcoming_sessions(self):
+        p = Profile("Lonzo", "CIS", "Math")
+
+        now = datetime.now()
+        past = StudySession(p, now - timedelta(hours=2), "Lab", "Past")
+        today = StudySession(p, now, "Library", "Today")
+        future = StudySession(p, now + timedelta(days=1), "Dorm", "Future")
+
+        p.schedule = [past, today, future]
+
+        result = p.upcoming_study_sessions(now)
+
+        self.assertIn(today, result)
+        self.assertIn(future, result)
+        self.assertNotIn(past, result)
+        
+    def test_sort_empty_schedule(self):
+        p = Profile("Lonzo", "CIS", "Math")
+        self.assertEqual(p.sort_study_sessions(), [])
 
 if __name__ == '__main__':
     unittest.main()
