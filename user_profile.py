@@ -50,7 +50,10 @@ class Profile:
     # Remove all events matching the same "what"
     def remove_event(self, event: Event):
         before = len(self.schedule)
-        self.schedule = [e for e in self.schedule if e.what != event.what]
+        self.schedule = [
+            e for e in self.schedule
+            if not (hasattr(e, "what") and e.what == event.what)
+        ]
         return len(self.schedule) < before
 
     # Output events relative to a date
