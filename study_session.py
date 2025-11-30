@@ -56,17 +56,16 @@ class StudySession:
         print(f"Cancelling study session on {self.topic}")
         self.status = "cancelled"
         
-    def remove(self, profileA, profileB):
-        removed = False
+    def remove(self, profile_a, profile_b):
+        in_a = self in profile_a.schedule
+        in_b = self in profile_b.schedule
 
-        # Remove from profile A
-        if self in profileA.schedule:
-            profileA.schedule.remove(self)
-            removed = True
+        if not (in_a and in_b):
+            print("Remove aborted: session not present in both profiles.")
+            return False
 
-        # Remove from profile B
-        if self in profileB.schedule:
-            profileB.schedule.remove(self)
-            removed = True
+        profile_a.schedule.remove(self)
+        profile_b.schedule.remove(self)
+        print(f"Removed study session on '{self.reason}' from Profiles {profile_a.id} and {profile_b.id}")
+        return True
 
-        return removed
