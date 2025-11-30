@@ -94,9 +94,7 @@ class Profile:
 
         return output
     
-    # Previous update_schedule still allowed but kept separate
-    def update_schedule_dict(self, new_schedule_dict):
-        self.schedule = new_schedule_dict
+    
 
     # NEW: update a single schedule entry with an Event
     def update_schedule(self, index: int, event: Event):
