@@ -167,4 +167,11 @@ class Profile:
             if item.when == new_session.when:
                 return True
         return False
+    
+    def add_study_session(self, new_session):
+        if self.has_conflict(new_session):
+            return False
+
+        self.schedule.append(new_session)
+        return True
 
