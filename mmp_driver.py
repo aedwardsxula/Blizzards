@@ -5,6 +5,7 @@ from invite_logic import InviteLogic
 from auto_cancel import AutoCancelJob
 from flashcards import FlashcardGenerator
 from event import Event
+import random
 
 # profiles
 def mmp_driver():
@@ -30,3 +31,29 @@ def mmp_driver():
 
 if __name__ == "__main__":
     mmp_driver()
+
+MAJORS = ["CS", "CE", "BINF", "CIS"]
+
+def random_name():
+    first_names = ["Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Jamie", "Cameron"]
+    last_names = ["Smith", "Johnson", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"]
+    import random
+    return f"{random.choice(first_names)} , {random.choice(last_names)}"
+
+def random_major():
+    return random.choice(MAJORS)
+
+def random_datetime():
+    start = datetime.now()
+    end = start + timedelta(days=30)
+    return start + (end - start) * random.random()
+
+def random_event():
+    what = random.choice(["Meeting", "Study Session", "Lecture", "Workshop", "Seminar"])
+    return Event(what, random_datetime())
+
+def random_study_session(proposer):
+    topic = random.choice(["What is the SDLC?" , "Midterm Prep", "Debugging Workshop","Algorithms Review", "Data Structures Overview"])
+    place = random.choice(["Library", "Cafe", "Online", "Study Room", "Park"])
+    time = random_datetime()
+    return StudySession(proposer, time, place, topic)
