@@ -3,6 +3,7 @@
 #and call every one of the Profile methods in the driver.
 from user_profile import Profile
 from event import Event
+from study_session import StudySession
 import unittest
 
 class TestProfile(unittest.TestCase):
@@ -69,6 +70,100 @@ class TestProfile(unittest.TestCase):
         profile = Profile(4, "michael", "brown", "ce")
         self.assertEqual(profile.first_name, "Michael")
         self.assertEqual(profile.last_name, "Brown")
+        
+    def test_sort_study_sessions(self):
+        p = Profile("Lonzo", "CIS", "Math")
 
+        now = datetime.now()
+        s1 = StudySession(p, now + timedelta(hours=5), "Library", "Trees")
+        s2 = StudySession(p, now + timedelta(hours=1), "STEM", "Loops")
+        s3 = StudySession(p, now + timedelta(hours=3), "Dorm", "Graphs")
+
+        p.schedule = [s1, s2, s3]
+
+        sorted_sessions = p.sort_study_sessions()
+        self.assertEqual(sorted_sessions, [s2, s3, s1])
+        
+    def test_upcoming_sessions(self):
+        p = Profile("Lonzo", "CIS", "Math")
+
+        now = datetime.now()
+        past = StudySession(p, now - timedelta(hours=2), "Lab", "Past")
+        today = StudySession(p, now, "Library", "Today")
+        future = StudySession(p, now + timedelta(days=1), "Dorm", "Future")
+
+        p.schedule = [past, today, future]
+
+        result = p.upcoming_study_sessions(now)
+
+        self.assertIn(today, result)
+        self.assertIn(future, result)
+        self.assertNotIn(past, result)
+        
+    def test_sort_empty_schedule(self):
+        p = Profile("Lonzo", "CIS", "Math")
+        self.assertEqual(p.sort_study_sessions(), [])
+        
+    def test_count_availability_by_hour(self):
+        p1 = Profile("Sam", "CIS", "Math")
+        p2 = Profile("Alex", "CE", "Physics")
+
+        p1.schedule = [
+            Event("Study", datetime(2025, 1, 1, 10, 0)),
+            Event("Lab", datetime(2025, 1, 1, 14, 0))
+        ]
+
+        p2.schedule = [
+            Event("Meeting", datetime(2025, 1, 1, 10, 30))
+        ]
+
+        counts = Profile.count_availability_by_hour([p1, p2])
+
+        self.assertEqual(counts[10], 2)
+        self.assertEqual(counts[14], 1)
+        
+    def test_best_hour(self):
+        data = {10: 3, 8: 3, 14: 1}
+        self.assertEqual(Profile.best_hour(data), 8)
+        
+    def test_best_hour_empty(self):
+        self.assertIsNone(Profile.best_hour({}))
+        
+    def test_event_vs_event_conflict(self):
+        p = Profile("Sam", "CIS", "Math")
+        e1 = Event("Study", datetime(2025, 1, 1, 10, 0))
+        e2 = Event("Lab", datetime(2025, 1, 1, 10, 0))
+
+        p.schedule = [e1]
+        self.assertTrue(p.has_conflict(e2))
+        
+    def test_session_vs_session_conflict(self):
+        p = Profile("Sam", "CIS", "Math")
+        s1 = StudySession(p, datetime(2025, 1, 1, 18, 0), "STEM", "Loops")
+        s2 = StudySession(p, datetime(2025, 1, 1, 18, 0), "Dorm", "Graphs")
+
+        p.schedule = [s1]
+        self.assertTrue(p.has_conflict(s2))
+        
+    def test_add_study_session_success(self):
+        p = Profile("Sam", "CIS", "Math")
+        s1 = StudySession(p, datetime(2025, 1, 2, 12, 0), "STEM", "Loops")
+
+        added = p.add_study_session(s1)
+        self.assertTrue(added)
+        self.assertIn(s1, p.schedule)
+        
+    def test_add_study_session_fail_on_conflict(self):
+        p = Profile("Sam", "CIS", "Math")
+        s1 = StudySession(p, datetime(2025, 1, 2, 12, 0), "STEM", "Loops")
+        s2 = StudySession(p, datetime(2025, 1, 2, 12, 0), "Library", "Trees")
+
+        p.schedule = [s1]
+        added = p.add_study_session(s2)
+
+        self.assertFalse(added)
+        self.assertEqual(len(p.schedule), 1)
+
+    
 if __name__ == '__main__':
     unittest.main()
