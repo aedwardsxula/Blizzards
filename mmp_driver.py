@@ -81,3 +81,28 @@ def random_111_profiles():
 
     return profiles
 
+#Create 30 random profiles
+def create_30_profiles():
+    def random_30_sessions():
+        p1 = Profile(2001, "Student", "One", random_major())
+        p2 = Profile(2002, "Student", "Two", random_major())
+
+        sessions = [random_study_session() for _ in range(30)]
+
+        # First 10  p1 only
+        for s in sessions[:10]:
+            p1.schedule.append(s)
+
+        # Next 10  p2 only
+        for s in sessions[10:20]:
+            p2.schedule.append(s)
+        # Final 10  invite both
+        for s in sessions[20:]:
+            s.invite(p1, p2)
+
+        print(f"Profile 1 schedule size: {len(p1.schedule)}")
+        print(f"Profile 2 schedule size: {len(p2.schedule)}")
+        print("-" * 50)
+
+        return p1, p2, sessions
+
