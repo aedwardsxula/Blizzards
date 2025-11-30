@@ -78,6 +78,10 @@ def random_111_profiles():
         for event in profile.schedule:
             print(f"Name:{profile.first_name} {profile.last_name}  has  -", len(profile.schedule), " events")
         print("-" * 40)
-
     return profiles
+
+
+
+
+   
 
