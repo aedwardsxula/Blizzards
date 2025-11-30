@@ -93,22 +93,14 @@ class Profile:
             output.append(f"{prefix}{e.what} at {formatted_time}")
 
         return output
-    
-    
 
     # NEW: update a single schedule entry with an Event
     def update_schedule(self, index: int, event: Event):
-        # Prevent duplicate DateTimes
-        for existing in self.schedule:
-            if existing.when == event.when:
-                return False  # Duplicate datetime — do NOT update
-
-        # Index must be valid
         if 0 <= index < len(self.schedule):
             self.schedule[index] = event
             return True
-
         return False
+
 
     # NEW: change major
     def change_major(self, new_major: str):
