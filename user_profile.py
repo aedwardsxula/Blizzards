@@ -20,8 +20,9 @@ class Profile:
             raise ValueError(f"Invalid major: {self.major}. Valid majors are: {', '.join(self.valid_majors)}")
         self.schedule = schedule if schedule is not None else []
 
-    def update_schedule(self, new_event):
-        self.schedule.append(new_event)
+    def append_event_to_schedule(self, event: Event):
+        self.schedule.append(event)
+
     
 
     def __str__(self):
