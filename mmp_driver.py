@@ -70,3 +70,37 @@ def random_111_profiles():
 
 
     #Find the longest schedule
+    lgst_sched = max(len(profile.schedule) for profile in profiles)
+    longest = [profile for profile in profiles if len(profile.schedule) == lgst_sched]
+    print("Profiles with the longest schedules:")
+    for profile in longest:
+        print(profile)
+        for event in profile.schedule:
+            print(f"Name:{profile.first_name} {profile.last_name}  has  -", len(profile.schedule), " events")
+        print("-" * 40)
+
+    return profiles
+
+#Create 30 random profiles
+def create_30_profiles():
+    def random_30_sessions():
+        p1 = Profile(2001, "Student", "One", random_major())
+        p2 = Profile(2002, "Student", "Two", random_major())
+
+        sessions = [random_study_session() for _ in range(30)]
+
+        # First 10  p1 only
+        for s in sessions[:10]:
+            p1.schedule.append(s)
+
+        # Next 10  p2 only
+        for s in sessions[10:20]:
+            p2.schedule.append(s)
+        # Final 10  invite both
+        for s in sessions[20:]:
+            s.invite(p1, p2)
+
+        print(f"Profile 1 schedule size: {len(p1.schedule)}")
+        print(f"Profile 2 schedule size: {len(p2.schedule)}")
+        return p1, p2, sessions
+        print("-" * 50)
