@@ -102,7 +102,5 @@ def create_30_profiles():
 
         print(f"Profile 1 schedule size: {len(p1.schedule)}")
         print(f"Profile 2 schedule size: {len(p2.schedule)}")
-        print("-" * 50)
-
         return p1, p2, sessions
-
+        print("-" * 50)
