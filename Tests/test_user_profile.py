@@ -69,6 +69,65 @@ class TestProfile(unittest.TestCase):
         profile = Profile(4, "michael", "brown", "ce")
         self.assertEqual(profile.first_name, "Michael")
         self.assertEqual(profile.last_name, "Brown")
+        
+    def test_sort_study_sessions(self):
+        p = Profile("Lonzo", "CIS", "Math")
 
+        now = datetime.now()
+        s1 = StudySession(p, now + timedelta(hours=5), "Library", "Trees")
+        s2 = StudySession(p, now + timedelta(hours=1), "STEM", "Loops")
+        s3 = StudySession(p, now + timedelta(hours=3), "Dorm", "Graphs")
+
+        p.schedule = [s1, s2, s3]
+
+        sorted_sessions = p.sort_study_sessions()
+        self.assertEqual(sorted_sessions, [s2, s3, s1])
+        
+    def test_upcoming_sessions(self):
+        p = Profile("Lonzo", "CIS", "Math")
+
+        now = datetime.now()
+        past = StudySession(p, now - timedelta(hours=2), "Lab", "Past")
+        today = StudySession(p, now, "Library", "Today")
+        future = StudySession(p, now + timedelta(days=1), "Dorm", "Future")
+
+        p.schedule = [past, today, future]
+
+        result = p.upcoming_study_sessions(now)
+
+        self.assertIn(today, result)
+        self.assertIn(future, result)
+        self.assertNotIn(past, result)
+        
+    def test_sort_empty_schedule(self):
+        p = Profile("Lonzo", "CIS", "Math")
+        self.assertEqual(p.sort_study_sessions(), [])
+        
+    def test_count_availability_by_hour(self):
+        p1 = Profile("Sam", "CIS", "Math")
+        p2 = Profile("Alex", "CE", "Physics")
+
+        p1.schedule = [
+            Event("Study", datetime(2025, 1, 1, 10, 0)),
+            Event("Lab", datetime(2025, 1, 1, 14, 0))
+        ]
+
+        p2.schedule = [
+            Event("Meeting", datetime(2025, 1, 1, 10, 30))
+        ]
+
+        counts = Profile.count_availability_by_hour([p1, p2])
+
+        self.assertEqual(counts[10], 2)
+        self.assertEqual(counts[14], 1)
+        
+    def test_best_hour(self):
+        data = {10: 3, 8: 3, 14: 1}
+        self.assertEqual(Profile.best_hour(data), 8)
+        
+    def test_best_hour_empty(self):
+        self.assertIsNone(Profile.best_hour({}))
+
+    
 if __name__ == '__main__':
     unittest.main()
