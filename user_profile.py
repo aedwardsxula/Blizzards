@@ -124,3 +124,20 @@ class Profile:
                 return True
             seen.add(e.when)
         return False
+    # Sort Study Sessions Earliest → Latest
+    def sort_study_sessions(self):
+        if not hasattr(self, "schedule") or len(self.schedule) == 0:
+            return []
+        return sorted(self.schedule, key=lambda session: session.time)
+    
+    # Filter Only Upcoming Sessions
+    def upcoming_study_sessions(self, current_time=None):
+        if current_time is None:
+            current_time = datetime.now()
+
+        upcoming = [
+            session for session in self.schedule
+            if session.time >= current_time
+        ]
+        return sorted(upcoming, key=lambda s: s.time)
+
