@@ -5,19 +5,20 @@
 #Create a Profile class that has attributes: id(int), first_name(str), last_name(str), schedule(list[Event]), major(str).  
 # Create a constructor and a __str__ method.  The first and last names must be formatted in Titlecase.  
 # The major must be formatted in TITLECASE.  The schedule must begin as an empty list.
+from typing import Optional, List
 from event import Event
+from study_session import StudySession
 from datetime import datetime
 class Profile:
-    Valid_majors = {'CS', 'CIS', 'CE', 'CE', 'BINF'}
+    valid_majors = {'CS', 'CIS', 'CE', 'CE', 'BINF'}
 
-    def __init__(self, id, first_name, last_name, major, schedule=None):
-
+    def __init__(self, id: int, first_name: str, last_name: str, major: str, schedule: Optional[List[Event]] = None):
         self.id = int(id)
         self.first_name = first_name.title()
         self.last_name = last_name.title()
         self.major = major.upper()
-        if self.major not in self.Valid_majors:
-            raise ValueError(f"Invalid major: {self.major}. Valid majors are: {', '.join(self.Valid_majors)}")
+        if self.major not in self.valid_majors:
+            raise ValueError(f"Invalid major: {self.major}. Valid majors are: {', '.join(self.valid_majors)}")
         self.schedule = schedule if schedule is not None else []
 
     def update_schedule(self, new_event):
@@ -124,3 +125,69 @@ class Profile:
                 return True
             seen.add(e.when)
         return False
+    # Sort Study Sessions Earliest → Latest
+    def sort_study_sessions(self):
+        if not hasattr(self, "schedule") or len(self.schedule) == 0:
+            return []
+        return sorted(self.schedule, key=lambda session: session.time)
+    
+    # Filter Only Upcoming Sessions
+    def upcoming_study_sessions(self, current_time=None):
+        if current_time is None:
+            current_time = datetime.now()
+
+        upcoming = [
+            session for session in self.schedule
+            if session.time >= current_time
+        ]
+        return sorted(upcoming, key=lambda s: s.time)
+    
+    @staticmethod
+    def count_availability_by_hour(profiles):
+        hour_counts = {}
+
+        for profile in profiles:
+            for event in profile.schedule:
+                hour = event.when.hour
+
+                # If hour not in dictionary yet, start at 0
+                if hour not in hour_counts:
+                    hour_counts[hour] = 0
+
+                # Increase count
+                hour_counts[hour] += 1
+
+        return hour_counts
+    
+    @staticmethod
+    def best_hour(hour_dict):
+        if len(hour_dict) == 0:
+            return None
+
+        # Start with the first hour in the dictionary
+        best_hour = None
+        best_value = -1
+
+        for hour in hour_dict:
+            count = hour_dict[hour]
+
+            # If count is higher OR same count but earlier hour
+            if count > best_value or (count == best_value and (best_hour is None or hour < best_hour)):
+                best_hour = hour
+                best_value = count
+
+        return best_hour
+    
+    def has_conflict(self, new_session):
+        for item in self.schedule:
+            if item.when == new_session.when:
+                return True
+        return False
+    
+    def add_study_session(self, new_session):
+        if self.has_conflict(new_session):
+            return False
+
+        self.schedule.append(new_session)
+        return True
+

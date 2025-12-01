@@ -72,19 +72,19 @@ def generate_study_sessions():
         print(f"- {e}")
 
 def main():
-    print (print_welcome_banner())
+    print_welcome_banner()
 
 
 
     #Testing User_profile class
     #Create 5 profiles and call their methods
-    p1 = Profile("Sam", "CIS", "Physics", "Unknown")
+    p1 = Profile(901, "Sam", "Jones", "CIS")
     p1.update_schedule({"Monday": ["9AM", "2PM"], "Wednesday":["11AM"]})
     
-    p2 = Profile("Jamie", "Math", "CIS", "Unknown")
-    p3 = Profile("Taylor", "Biology", "Chemistry", "Unknown")
-    p4 = Profile("Jordan", "History", "English", "Unknown")
-    p5 = Profile("Casey", "Art", "Design", "Unknown")
+    p2 = Profile(902, "Jamie", "Williams", "CS")
+    p3 = Profile(903, "Taylor", "Ibrahim", "CS")
+    p4 = Profile(925, "Jordan", "Evans", "BINF")
+    p5 = Profile(914, "Casey", "Nguyen", "CIS")
     profiles = [p1, p2, p3, p4, p5]
     for profile in profiles:
         if profile.major == "Art":
