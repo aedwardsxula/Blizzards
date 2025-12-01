@@ -85,6 +85,7 @@ def generate_student_profiles():
             profile.update_schedule(event)
             student_profiles.append(profile)
 
+def find_longest_schedules(profiles):
 
 def main():
     print_welcome_banner()
