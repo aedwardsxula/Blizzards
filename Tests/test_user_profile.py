@@ -59,5 +59,51 @@ class TestProfile(unittest.TestCase):
         self.assertNotIn("Math Exam on Friday at 10AM", self.Sam.schedule)
         self.assertTrue(event_removed)
 
+        self.assertEqual(counts[10], 2)
+        self.assertEqual(counts[14], 1)
+        
+    def test_best_hour(self):
+        data = {10: 3, 8: 3, 14: 1}
+        self.assertEqual(Profile.best_hour(data), 8)
+        
+    def test_best_hour_empty(self):
+        self.assertIsNone(Profile.best_hour({}))
+        
+    def test_event_vs_event_conflict(self):
+        p = Profile("Sam", "CIS", "Math")
+        e1 = Event("Study", datetime(2025, 1, 1, 10, 0))
+        e2 = Event("Lab", datetime(2025, 1, 1, 10, 0))
+
+        p.schedule = [e1]
+        self.assertTrue(p.has_conflict(e2))
+        
+    def test_session_vs_session_conflict(self):
+        p = Profile("Sam", "CIS", "Math")
+        s1 = StudySession(p, datetime(2025, 1, 1, 18, 0), "STEM", "Loops")
+        s2 = StudySession(p, datetime(2025, 1, 1, 18, 0), "Dorm", "Graphs")
+
+        p.schedule = [s1]
+        self.assertTrue(p.has_conflict(s2))
+        
+    def test_add_study_session_success(self):
+        p = Profile("Sam", "CIS", "Math")
+        s1 = StudySession(p, datetime(2025, 1, 2, 12, 0), "STEM", "Loops")
+
+        added = p.add_study_session(s1)
+        self.assertTrue(added)
+        self.assertIn(s1, p.schedule)
+        
+    def test_add_study_session_fail_on_conflict(self):
+        p = Profile("Sam", "CIS", "Math")
+        s1 = StudySession(p, datetime(2025, 1, 2, 12, 0), "STEM", "Loops")
+        s2 = StudySession(p, datetime(2025, 1, 2, 12, 0), "Library", "Trees")
+
+        p.schedule = [s1]
+        added = p.add_study_session(s2)
+
+        self.assertFalse(added)
+        self.assertEqual(len(p.schedule), 1)
+
+    
 if __name__ == '__main__':
     unittest.main()   
