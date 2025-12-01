@@ -7,6 +7,7 @@
 # The major must be formatted in TITLECASE.  The schedule must begin as an empty list.
 from typing import Optional, List
 from event import Event
+from study_session import StudySession
 from datetime import datetime
 class Profile:
     valid_majors = {'CS', 'CIS', 'CE', 'CE', 'BINF'}
@@ -143,10 +144,6 @@ class Profile:
     
     @staticmethod
     def count_availability_by_hour(profiles):
-        """
-        Returns a dictionary {hour: count}.
-        Uses only simple loops and basic dict operations.
-        """
         hour_counts = {}
 
         for profile in profiles:
@@ -180,4 +177,17 @@ class Profile:
                 best_value = count
 
         return best_hour
+    
+    def has_conflict(self, new_session):
+        for item in self.schedule:
+            if item.when == new_session.when:
+                return True
+        return False
+    
+    def add_study_session(self, new_session):
+        if self.has_conflict(new_session):
+            return False
+
+        self.schedule.append(new_session)
+        return True
 
