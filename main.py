@@ -5,7 +5,6 @@ from invite_logic import InviteLogic
 from auto_cancel import AutoCancelJob
 from flashcards import FlashcardGenerator
 from event import Event
-import random
 
 def print_welcome_banner():
     banner = r"""
@@ -70,67 +69,51 @@ def generate_study_sessions():
     print(f"\nProfile 2 Schedule ({profile2.first_name} {profile2.last_name}):")
     for e in profile2.schedule:
         print(f"- {e}")
+    # updated banner integration
 
 def main():
     print_welcome_banner()
 
+    while True:
+        print("\n==================== STUDY BUDDY APP ====================")
+        print("1. Create Profile")
+        print("2. View Profile")
+        print("3. List All Profiles")
+        print("4. Change Major")
+        print("5. Add Event")
+        print("6. Remove Event")
+        print("7. Sort Events")
+        print("8. View Events")
+        print("9. Create and Invite Study Session")
+        print("10. Accept Invite")
+        print("11. Decline Invite")
+        print("12. Auto-Cancel Session")
+        print("13. Remove Study Session From Both Profiles")
+        print("14. Exit")
 
+        choice = input("Select option: ").strip()
 
-    #Testing User_profile class
-    #Create 5 profiles and call their methods
-    p1 = Profile(901, "Sam", "Jones", "CIS")
-    p1.update_schedule({"Monday": ["9AM", "2PM"], "Wednesday":["11AM"]})
-    
-    p2 = Profile(902, "Jamie", "Williams", "CS")
-    p3 = Profile(903, "Taylor", "Ibrahim", "CS")
-    p4 = Profile(925, "Jordan", "Evans", "BINF")
-    p5 = Profile(914, "Casey", "Nguyen", "CIS")
-    profiles = [p1, p2, p3, p4, p5]
-    for profile in profiles:
-        if profile.major == "Art":
-            profile.update_schedule({"Tuesday": ["1PM", "3PM"]})
+        if choice == "1": create_profile()
+        elif choice == "2": view_profile()
+        elif choice == "3": list_profiles()
+        elif choice == "4": change_major()
+        elif choice == "5": add_event()
+        elif choice == "6": remove_event()
+        elif choice == "7": sort_events()
+        elif choice == "8": view_events()
+        elif choice == "9": invite_two_profiles()
+        elif choice == "10": accept_invite()
+        elif choice == "11": decline_invite()
+        elif choice == "12": auto_cancel_session()
+        elif choice == "13": remove_session_from_both()
+        elif choice == "14":
+            print("Goodbye.")
+            break
         else:
-            profile.update_schedule({"Friday": ["10AM"]})
-        print(profile)
-        print("Updated schedule:", profile.schedule)
-        print("-" * 40)
+            print("Invalid option. Try again.")
 
-    #Create and event to test AutoCancelJob
-    e1 = Event("Math Exam", datetime.now() + timedelta(days=1))
-    auto_cancel = AutoCancelJob(e1, 2)  # Auto-cancel if not confirmed in 1 hour
-    print("\nAutoCancelJob created for event:", auto_cancel.event.name)
-    
-    # Create 33 study sessions
-    sessions = []
-    times = [datetime.now() + timedelta(days=i, hours=j) for i in range(1, 10) for j in range(9, 18)]
-    topics = ["Calculus", "Calculus II", "Info Systems",  "Data Structures", "Chemistry"]
-    places = ["Library", "Cafeteria", "Admin", "Zoom"]
-    for i in range(33):
-        session = StudySession(proposer=f"User{i}", time=random.choice(times), place=random.choice(places),topic=random.choice(topics), status="pending")
-        sessions.append(session)
-    for s in sessions:
-        print(f"{s.proposer} scheduled {s.topic} at {s.place} ({s.time})")
 
-    #remove sessions from two profiles
-    for s in sessions:
-        remove_two_sessions(s, p1, p2)
-
-    #Create 222 study sessions
-    study_sessions = []
-    times = [datetime.now() + timedelta(days=i, hours=j) for i in range(1, 10) for j in range(9, 18)]
-    topics = ["Calculus", "Calculus II", "Info Systems",  "Data Structures", "Chemistry"]
-    places = ["Library", "Cafeteria", "Admin", "Zoom"]
-    for i in range(33):
-        s_session = StudySession(proposer=f"User{i}", time=random.choice(times), place=random.choice(places),topic=random.choice(topics), status="pending")
-        study_sessions.append(s_session)
-    for s in study_sessions:
-        print(f"{s.proposer} scheduled {s.topic} at {s.place} ({s.time})")
-
-    profileA, profileB = random.sample(profiles, 2)
-    chosen_session = random.choice(study_sessions)
-
-    session1 = StudySession(proposer=profileA, time="3PM", place="Library", topic="Sorting Algorithms")
-    session1.invite(profileA, profileB )
+  
 
 
 

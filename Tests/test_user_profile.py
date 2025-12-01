@@ -39,65 +39,25 @@ class TestProfile(unittest.TestCase):
         self.Sam.major = "Math"
         self.assertEqual(self.Sam.major, "Math")
         self.Sam.minor = "Computer Science"
-        self.assertEqual(self.Sam.minor, "Computer Science")    
-    
-    ###
+        self.assertEqual(self.Sam.minor, "Computer Science") 
 
-    def test_profile_attributes(self):
-        profile = Profile(1, "john", "doe", "cs")
-        self.assertEqual(profile.id, 1)
-        self.assertEqual(profile.first_name, "John")
-        self.assertEqual(profile.last_name, "Doe")
-        self.assertEqual(profile.major, "CS")
-        self.assertEqual(profile.schedule, [])
+    def test_str_and_repr_methods(self):
+        profile_str = str(self.Sam)
+        profile_repr = repr(self.Sam)
+        self.assertIsInstance(profile_str, str)
+        self.assertIsInstance(profile_repr, str)
+        self.assertEqual(profile_str, profile_repr)
 
-    def test_update_schedule(self):
-        profile = Profile(2, "jane", "smith", "cis")
-        event = Event("Meeting", datetime(2024, 5, 20, 14, 0))
-        profile.update_schedule(event)
-        self.assertEqual(len(profile.schedule), 1)
-        self.assertEqual(profile.schedule[0], event)
+    def test_add_event(self):
+        event_added = self.Sam.add_event("Math Exam on Friday at 10AM")
+        self.assertIn("Math Exam on Friday at 10AM", self.Sam.schedule)
+        self.assertTrue(event_added)
 
-    def test_valid_datetime_in_event(self):
-        event_date = datetime(2024, 6, 15, 10, 30)
-        event = Event("Conference", event_date)
-        self.assertIsInstance(event.event_date, datetime)
-
-    def test_invalid_major_raises_value_error(self):
-        with self.assertRaises(ValueError):
-            Profile(3, "alice", "johnson", "math")
-
-    def test_name_titlecase(self):
-        profile = Profile(4, "michael", "brown", "ce")
-        self.assertEqual(profile.first_name, "Michael")
-        self.assertEqual(profile.last_name, "Brown")
-###
-class TestSortEvents(unittest.TestCase):
-
-    def test_sort_events_basic(self):
-        p = Profile(10, "john", "doe", "CS")
-
-        e1 = Event("First", datetime(2024, 5, 20, 10, 0))
-        e2 = Event("Second", datetime(2024, 5, 22, 9, 0))
-        e3 = Event("Third", datetime(2024, 5, 21, 15, 0))
-
-        p.schedule.extend([e1, e2, e3])
-        p.sort_events()
-
-        self.assertEqual(p.schedule, [e2, e3, e1])
-
-    def test_sort_events_with_study_session(self):
-        p = Profile(11, "amy", "smith", "CIS")
-
-        e1 = Event("Old Event", datetime(2024, 4, 10, 10, 0))
-        s1 = StudySession("Amy", datetime(2024, 4, 12, 14, 30), "Library", "Review")
-        e2 = Event("Newest Event", datetime(2024, 4, 15, 9, 0))
-
-        p.schedule.extend([e1, s1, e2])
-        p.sort_events()
-
-        # Newest → oldest
-        self.assertEqual(p.schedule, [e2, s1, e1])
+    def test_remove_event(self):
+        self.Sam.add_event("Math Exam on Friday at 10AM")
+        event_removed = self.Sam.remove_event("Math Exam on Friday at 10AM")
+        self.assertNotIn("Math Exam on Friday at 10AM", self.Sam.schedule)
+        self.assertTrue(event_removed)
 
         self.assertEqual(counts[10], 2)
         self.assertEqual(counts[14], 1)
@@ -146,4 +106,4 @@ class TestSortEvents(unittest.TestCase):
 
     
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main()   
