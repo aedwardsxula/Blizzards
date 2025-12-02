@@ -216,3 +216,6 @@ __marimo__/
 .streamlit/secrets.toml
 
 .DS_Store
+
+# Ignore temporary Excel files (e.g., ~$filename.xlsx)
+~$*.xlsx
