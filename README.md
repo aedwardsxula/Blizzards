@@ -23,3 +23,6 @@ Prioritized Projects:
 4. CPSC Core Curriculum Recommender
 5. CPSC Friends
 6. CPSC Events
+
+#Project's Purpose
+CPSC Study Buddies is designed to help CS/CIS/BINF students and faculty coordinate study sessions, manage schedules, and prepare with auto‑generated flashcards.
