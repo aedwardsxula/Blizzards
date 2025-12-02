@@ -93,6 +93,7 @@ def find_longest_schedules(profiles):
         print(f"- {profile.first_name} {profile.last_name} (ID: {profile.id})")
 
 def main():
+    print("Driver started")
     print_welcome_banner()
 
 
@@ -100,7 +101,7 @@ def main():
     #Testing User_profile class
     #Create 5 profiles and call their methods
     p1 = Profile(901, "Sam", "Jones", "CIS")
-    p1.update_schedule({"Monday": ["9AM", "2PM"], "Wednesday":["11AM"]})
+    # p1.update_schedule({"Monday": ["9AM", "2PM"], "Wednesday":["11AM"]})
     
     p2 = Profile(902, "Jamie", "Williams", "CS")
     p3 = Profile(903, "Taylor", "Ibrahim", "CS")
@@ -110,16 +111,16 @@ def main():
     for profile in profiles:
         if profile.major == "Art":
             profile.update_schedule({"Tuesday": ["1PM", "3PM"]})
-        else:
-            profile.update_schedule({"Friday": ["10AM"]})
+        # else:
+            # profile.update_schedule({"Friday": ["10AM"]})
         print(profile)
         print("Updated schedule:", profile.schedule)
         print("-" * 40)
 
     #Create and event to test AutoCancelJob
     e1 = Event("Math Exam", datetime.now() + timedelta(days=1))
-    auto_cancel = AutoCancelJob(e1, 2)  # Auto-cancel if not confirmed in 1 hour
-    print("\nAutoCancelJob created for event:", auto_cancel.event.name)
+    # auto_cancel = AutoCancelJob(e1, 2)  # Auto-cancel if not confirmed in 1 hour
+    # print("\nAutoCancelJob created for event:", auto_cancel.event.name)
     
     # Create 33 study sessions
     sessions = []
@@ -153,8 +154,7 @@ def main():
     session1 = StudySession(proposer=profileA, time="3PM", place="Library", topic="Sorting Algorithms")
     session1.invite(profileA, profileB )
 
-    #Create 111 student profiles and output student(s) with the longest schedule
-    student_profiles = []
+    print("\nDriver ended")
 
 
 
