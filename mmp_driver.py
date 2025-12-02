@@ -103,3 +103,16 @@ def create_30_profiles():
         print(f"Profile 2 schedule size: {len(p2.schedule)}")
         return p1, p2, sessions
         print("-" * 50)
+
+    #remove 33 study sessions
+    def remove_33_sessions(profiles):
+        sessions = [random_study_session() for _ in range(33)]
+        for session in sessions:
+            if len(profiles) < 2:
+                break
+            pA, pB = random.sample(profiles, 2)
+            session.remove(pA, pB)
+        print(f"Removed session on {session.topic} from profiles {pA.first_name} and {pB.first_name}.")
+        print("-" * 50)
+
+        #create 222 random profiles
