@@ -7,15 +7,25 @@ class Event:
         self.when = when
 
     def add_event(self, profile):
-        if self in profile.schedule:
-            return False
+    # Reject exact duplicate event
         for event in profile.schedule:
             if event.what == self.what and event.when == self.when:
-                print(f"Cannot add {self.what} for {profile.first_name} {profile.last_name}: Conflict or duplicate event.")
+                print(f"Cannot add {self.what} for {profile.first_name} {profile.last_name}: Duplicate event.")
                 return False
+
+        # NEW: Reject any event with the same DATE + TIME
+        for event in profile.schedule:
+            # Handles Event.when AND StudySession.time
+            existing_time = getattr(event, "when", getattr(event, "time", None))
+            if existing_time == self.when:
+                print(f"Cannot add event: Time conflict! {profile.first_name} already has something at this time.")
+                return False
+
+        # Safe to add
         profile.schedule.append(self)
         print(f"Added {self.what} to {profile.first_name} {profile.last_name}'s schedule.")
         return True
+
         
         
 
