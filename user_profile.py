@@ -21,8 +21,9 @@ class Profile:
             raise ValueError(f"Invalid major: {self.major}. Valid majors are: {', '.join(self.valid_majors)}")
         self.schedule = schedule if schedule is not None else []
 
-    def update_schedule(self, new_event):
-        self.schedule.append(new_event)
+    def append_event_to_schedule(self, event: Event):
+        self.schedule.append(event)
+
     
 
     def __str__(self):
@@ -94,24 +95,14 @@ class Profile:
             output.append(f"{prefix}{e.what} at {formatted_time}")
 
         return output
-    
-    # Previous update_schedule still allowed but kept separate
-    def update_schedule_dict(self, new_schedule_dict):
-        self.schedule = new_schedule_dict
 
     # NEW: update a single schedule entry with an Event
     def update_schedule(self, index: int, event: Event):
-        # Prevent duplicate DateTimes
-        for existing in self.schedule:
-            if existing.when == event.when:
-                return False  # Duplicate datetime — do NOT update
-
-        # Index must be valid
         if 0 <= index < len(self.schedule):
             self.schedule[index] = event
             return True
-
         return False
+
 
     # NEW: change major
     def change_major(self, new_major: str):
