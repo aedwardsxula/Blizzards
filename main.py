@@ -98,8 +98,8 @@ def main():
 
     #Create and event to test AutoCancelJob
     e1 = Event("Math Exam", datetime.now() + timedelta(days=1))
-    auto_cancel = AutoCancelJob(e1, 2)  # Auto-cancel if not confirmed in 1 hour
-    print("\nAutoCancelJob created for event:", auto_cancel.event.name)
+    # auto_cancel = AutoCancelJob(e1, 2)  # Auto-cancel if not confirmed in 1 hour
+    # print("\nAutoCancelJob created for event:", auto_cancel.event.name)
     
     # Create 33 study sessions
     sessions = []
