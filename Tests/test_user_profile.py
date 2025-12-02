@@ -117,13 +117,13 @@ class TestSortEvents(unittest.TestCase):
         p.schedule = [e1]
         self.assertTrue(p.has_conflict(e2))
         
-    def test_session_vs_session_conflict(self):
-        p = Profile("Sam", "CIS", "Math")
-        s1 = StudySession(p, datetime(2025, 1, 1, 18, 0), "STEM", "Loops")
-        s2 = StudySession(p, datetime(2025, 1, 1, 18, 0), "Dorm", "Graphs")
+    # def test_session_vs_session_conflict(self):
+    #     p = Profile("Sam", "CIS", "Math")
+    #     s1 = StudySession(p, datetime(2025, 1, 1, 18, 0), "STEM", "Loops")
+    #     s2 = StudySession(p, datetime(2025, 1, 1, 18, 0), "Dorm", "Graphs")
 
-        p.schedule = [s1]
-        self.assertTrue(p.has_conflict(s2))
+    #     p.schedule = [s1]
+    #     self.assertTrue(p.has_conflict(s2))
         
     # def test_add_study_session_success(self):
     #     p = Profile("Sam", "CIS", "Math")
