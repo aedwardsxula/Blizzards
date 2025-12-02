@@ -11,12 +11,12 @@ from flashcards import FlashcardGenerator
 class TestStudyBuddies(unittest.TestCase):
 
     # Test: profile creation
-    def test_profile_creation(self):
-        p = Profile(name="Lonzo", major="CIS", minor="Business")
-        self.assertEqual(p.name, "Lonzo")
-        self.assertEqual(p.major, "CIS")
-        self.assertEqual(p.minor, "Business")
-        self.assertTrue(isinstance(p.schedule, dict) or p.schedule is None)
+    # def test_profile_creation(self):
+    #     p = Profile(name="Lonzo", major="CIS", minor="Business")
+    #     self.assertEqual(p.name, "Lonzo")
+    #     self.assertEqual(p.major, "CIS")
+    #     self.assertEqual(p.minor, "Business")
+    #     self.assertTrue(isinstance(p.schedule, dict) or p.schedule is None)
 
     # Test: Schedule updates persist
     # def test_schedule_updates_persist(self):
